@@ -12,7 +12,6 @@ public class CustomerMapperTest {
     public static final long ID = 123L;
     public static final String FIRST_NAME = "James";
     public static final String LAST_NAME = "Smith";
-    public static final String CUSTOMER_URL = "/api/customer/Smith";
 
     CustomerMapper customerMapper = CustomerMapper.INSTANCE;
 
@@ -20,7 +19,7 @@ public class CustomerMapperTest {
     public void customerToCustomerDTO() throws Exception {
 
         //given
-        Customer customer = new Customer(ID, FIRST_NAME, LAST_NAME, CUSTOMER_URL);
+        Customer customer = new Customer(ID, FIRST_NAME, LAST_NAME);
 
         //when
         CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);

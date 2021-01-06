@@ -34,9 +34,9 @@ public class CustomerServiceTest {
     @Test
     public void getAllCustomer() {
         //given
-        Customer customer1 = new Customer(1L,"Bipin","Patel","/api/customer/Bipin");
-        Customer customer2 = new Customer(2L,"Adam","Swindler","/api/customer/Adam");
-        Customer customer3 = new Customer(3L,"Stewart","Angle","/api/customer/Stewart");
+        Customer customer1 = new Customer(1L,"Bipin","Patel");
+        Customer customer2 = new Customer(2L,"Adam","Swindler");
+        Customer customer3 = new Customer(3L,"Stewart","Angle");
 
         List<Customer> customers = new ArrayList<Customer>();
         customers.add(customer1);
@@ -55,7 +55,7 @@ public class CustomerServiceTest {
     @Test
     public void getCustomerByName() {
         //given
-        Customer customer1 = new Customer(1L,"Bipin","Patel","/api/customer/Bipin");
+        Customer customer1 = new Customer(1L,"Bipin","Patel");
 
         //when
         when(customerRepository.findByFirstName(anyString())).thenReturn(customer1);

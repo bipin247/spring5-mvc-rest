@@ -34,6 +34,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomerByName(String name) {
-        return customerMapper.customerToCustomerDTO(customerRepository.findByFirstName(name));
+        CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customerRepository.findByFirstName(name));
+        customerDTO.setCustomerUrl("/api/v1/customers/" + customerDTO.getFirstName());
+        return customerDTO;
     }
 }

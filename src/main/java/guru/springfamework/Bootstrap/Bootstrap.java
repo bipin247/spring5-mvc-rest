@@ -20,6 +20,16 @@ public class Bootstrap implements CommandLineRunner {
 
     @java.lang.Override
     public void run(java.lang.String... args) throws Exception {
+        loadFruits();
+
+        System.out.println("-----> Category Data Loaded = " + categoryRepository.count() );
+
+        loadCustomers();
+
+        System.out.println("---------> Customer Data Loaded = " + customerRepository.count() );
+    }
+
+    private void loadFruits() {
         Category fruits = new Category();
         fruits.setName("Fruits");
 
@@ -40,16 +50,14 @@ public class Bootstrap implements CommandLineRunner {
         categoryRepository.save(fresh);
         categoryRepository.save(exotic);
         categoryRepository.save(nuts);
+    }
 
-        System.out.println("-----> Category Data Loaded = " + categoryRepository.count() );
-
-        customerRepository.save(new Customer(1L,"Bipin","Patel","/api/customer/Bipin"));
-        customerRepository.save(new Customer(2L,"Adam","Swindler","/api/customer/Adam"));
-        customerRepository.save(new Customer(3L,"Stewart","Angle","/api/customer/Stewart"));
-        customerRepository.save(new Customer(4L,"Boring","747","/api/customer/Boring"));
-        customerRepository.save(new Customer(5L,"Company","Matter","/api/customer/Company"));
-        customerRepository.save(new Customer(6L,"Douglas","Dolittle","/api/customer/Douglas"));
-
-        System.out.println("---------> Customer Data Loaded = " + customerRepository.count() );
+    private void loadCustomers() {
+        customerRepository.save(new Customer(1L,"Bipin","Patel"));
+        customerRepository.save(new Customer(2L,"Adam","Swindler"));
+        customerRepository.save(new Customer(3L,"Stewart","Angle"));
+        customerRepository.save(new Customer(4L,"Boring","747"));
+        customerRepository.save(new Customer(5L,"Company","Matter"));
+        customerRepository.save(new Customer(6L,"Douglas","Dolittle"));
     }
 }
