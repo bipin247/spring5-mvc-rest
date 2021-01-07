@@ -1,4 +1,4 @@
-package guru.springfamework.Bootstrap;
+package guru.springfamework.bootstrap;
 
 import guru.springfamework.domain.Category;
 import guru.springfamework.domain.Customer;

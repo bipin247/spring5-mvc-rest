@@ -55,4 +55,29 @@ public class CustomerServiceImpl implements CustomerService {
         return  customerDTO1;
 
     }
+
+    @Override
+    public CustomerDTO patchCustomer(String name, CustomerDTO customerDTO) {
+        Customer customer =  customerRepository.findByFirstName(name);
+
+        if (customerDTO.getFirstName() == null) {
+            customerDTO.setFirstName(customer.getFirstName());
+        }
+
+        if (customerDTO.getLastName() == null) {
+            customerDTO.setLastName(customer.getLastName());
+        }
+
+        customerDTO.setId(customer.getId());
+        CustomerDTO customerDTO1 = customerMapper.customerToCustomerDTO(customerRepository.save(customerMapper.customerDTOToCustomer(customerDTO)));
+        customerDTO1.setCustomerUrl("/api/v1/customers/" + customerDTO.getFirstName());
+        return  customerDTO1;
+
+    }
+
+    @Override
+    public CustomerDTO deleteCustomer(String name) {
+        return null;
+    }
+
 }
