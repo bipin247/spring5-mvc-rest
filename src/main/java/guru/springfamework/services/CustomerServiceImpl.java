@@ -2,6 +2,7 @@ package guru.springfamework.services;
 
 import guru.springfamework.api.v1.mapper.CustomerMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.controllers.v1.CustomerController;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
                .stream()
                 .map(customer -> {
                     CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
-                    customerDTO.setCustomerUrl("/api/v1/customers/" + customerDTO.getFirstName());
+                    customerDTO.setCustomerUrl(getCustomerUrl(customerDTO.getFirstName()));
                     return customerDTO;
                 })
                 .collect(Collectors.toList());
@@ -35,14 +36,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO getCustomerByName(String name) {
         CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customerRepository.findByFirstName(name));
-        customerDTO.setCustomerUrl("/api/v1/customers/" + customerDTO.getFirstName());
+        customerDTO.setCustomerUrl(getCustomerUrl(customerDTO.getFirstName()));
         return customerDTO;
     }
 
     @Override
     public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
         CustomerDTO customerDTO1 = customerMapper.customerToCustomerDTO(customerRepository.save(customerMapper.customerDTOToCustomer(customerDTO)));
-        customerDTO1.setCustomerUrl("/api/v1/customers/" + customerDTO.getFirstName());
+        customerDTO1.setCustomerUrl(getCustomerUrl(customerDTO.getFirstName()));
         return  customerDTO1;
     }
 
@@ -51,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findByFirstName(name);
         customerDTO.setId(customer.getId());
         CustomerDTO customerDTO1 = customerMapper.customerToCustomerDTO(customerRepository.save(customerMapper.customerDTOToCustomer(customerDTO)));
-        customerDTO1.setCustomerUrl("/api/v1/customers/" + customerDTO.getFirstName());
+        customerDTO1.setCustomerUrl(getCustomerUrl(customerDTO.getFirstName()));
         return  customerDTO1;
 
     }
@@ -70,7 +71,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         customerDTO.setId(customer.getId());
         CustomerDTO customerDTO1 = customerMapper.customerToCustomerDTO(customerRepository.save(customerMapper.customerDTOToCustomer(customerDTO)));
-        customerDTO1.setCustomerUrl("/api/v1/customers/" + customerDTO.getFirstName());
+        customerDTO1.setCustomerUrl(getCustomerUrl(customerDTO.getFirstName()));
         return  customerDTO1;
 
     }
@@ -81,4 +82,7 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.delete(customer);
     }
 
+    private String getCustomerUrl(String name) {
+        return CustomerController.BASE_URL + "/" + name;
+    }
 }
