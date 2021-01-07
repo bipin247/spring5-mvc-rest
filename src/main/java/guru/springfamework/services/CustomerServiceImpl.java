@@ -35,9 +35,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getCustomerByName(String name) {
-        CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customerRepository.findByFirstName(name));
-        customerDTO.setCustomerUrl(getCustomerUrl(customerDTO.getFirstName()));
-        return customerDTO;
+        try {
+            CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customerRepository.findByFirstName(name));
+            customerDTO.setCustomerUrl(getCustomerUrl(customerDTO.getFirstName()));
+            return customerDTO;
+        } catch (RuntimeException rex){
+            throw new ResourceNotFoundException();
+        }
     }
 
     @Override
@@ -59,20 +63,24 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO patchCustomer(String name, CustomerDTO customerDTO) {
-        Customer customer =  customerRepository.findByFirstName(name);
+        try {
+            Customer customer = customerRepository.findByFirstName(name);
 
-        if (customerDTO.getFirstName() == null) {
-            customerDTO.setFirstName(customer.getFirstName());
+            if (customerDTO.getFirstName() == null) {
+                customerDTO.setFirstName(customer.getFirstName());
+            }
+
+            if (customerDTO.getLastName() == null) {
+                customerDTO.setLastName(customer.getLastName());
+            }
+
+            customerDTO.setId(customer.getId());
+            CustomerDTO customerDTO1 = customerMapper.customerToCustomerDTO(customerRepository.save(customerMapper.customerDTOToCustomer(customerDTO)));
+            customerDTO1.setCustomerUrl(getCustomerUrl(customerDTO.getFirstName()));
+            return customerDTO1;
+        } catch (RuntimeException rex){
+            throw new ResourceNotFoundException();
         }
-
-        if (customerDTO.getLastName() == null) {
-            customerDTO.setLastName(customer.getLastName());
-        }
-
-        customerDTO.setId(customer.getId());
-        CustomerDTO customerDTO1 = customerMapper.customerToCustomerDTO(customerRepository.save(customerMapper.customerDTOToCustomer(customerDTO)));
-        customerDTO1.setCustomerUrl(getCustomerUrl(customerDTO.getFirstName()));
-        return  customerDTO1;
 
     }
 
