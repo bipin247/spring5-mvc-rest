@@ -4,12 +4,9 @@ import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.api.v1.model.CustomerListDTO;
 import guru.springfamework.services.CustomerService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping(CustomerController.BASE_URL)
 public class CustomerController {
 
@@ -22,36 +19,39 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<CustomerListDTO> getListofCustomers(){
-
-        return new ResponseEntity<CustomerListDTO>
-                (new CustomerListDTO(customerService.getAllCustomer()), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerListDTO getListofCustomers(){
+        return new CustomerListDTO(customerService.getAllCustomer());
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable String name){
-        return new ResponseEntity<CustomerDTO>(customerService.getCustomerByName(name), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDTO getCustomerById(@PathVariable String name){
+        return customerService.getCustomerByName(name);
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDTO> saveCustomer(@RequestBody CustomerDTO customerDTO){
-        return new ResponseEntity<CustomerDTO>(customerService.saveCustomer(customerDTO), HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
+        return customerService.saveCustomer(customerDTO);
     }
 
     @PutMapping("/{name}")
-    public ResponseEntity<CustomerDTO> saveCustomer(@PathVariable String name ,@RequestBody CustomerDTO customerDTO){
-        return new ResponseEntity<CustomerDTO>(customerService.updateCustomer(name,customerDTO), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDTO saveCustomer(@PathVariable String name ,@RequestBody CustomerDTO customerDTO){
+        return customerService.updateCustomer(name,customerDTO);
     }
 
     @PatchMapping("/{name}")
-    public ResponseEntity<CustomerDTO> patchCustomer(@PathVariable String name ,@RequestBody CustomerDTO customerDTO){
-        return new ResponseEntity<CustomerDTO>(customerService.patchCustomer(name,customerDTO), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDTO patchCustomer(@PathVariable String name ,@RequestBody CustomerDTO customerDTO){
+        return customerService.patchCustomer(name,customerDTO);
     }
 
     @DeleteMapping("/{name}")
-    public ResponseEntity<Void> patchCustomer(@PathVariable String name ){
+    @ResponseStatus(HttpStatus.OK)
+    public void patchCustomer(@PathVariable String name ){
         customerService.deleteCustomer(name);
-        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }
