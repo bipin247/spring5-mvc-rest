@@ -76,8 +76,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO deleteCustomer(String name) {
-        return null;
+    public void deleteCustomer(String name) {
+        Customer customer =  customerRepository.findByFirstName(name);
+        customerRepository.delete(customer);
     }
 
 }

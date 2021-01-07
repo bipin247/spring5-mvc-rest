@@ -112,4 +112,19 @@ public class CustomerServiceTest {
         assertEquals(customerDTO.getFirstName(), savedDto.getFirstName());
         assertEquals("/api/v1/customers/Bipin", savedDto.getCustomerUrl());
     }
+
+    @Test
+    public void deleteCustomerByname() throws Exception {
+        //given
+        Customer customer = new Customer();
+        customer.setFirstName("test");
+        customerRepository.save(customer);
+        when(customerRepository.findByFirstName(anyString())).thenReturn(any());
+        //when
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstName("test");
+        customerService.deleteCustomer(customerDTO.getFirstName());
+        //then
+        assertEquals(null, customerRepository.findByFirstName("test"));
+    }
 }
