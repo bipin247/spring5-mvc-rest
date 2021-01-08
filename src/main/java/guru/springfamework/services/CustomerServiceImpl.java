@@ -90,6 +90,20 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.delete(customer);
     }
 
+    @Override
+    public CustomerDTO getCustomerById(long l) {
+        return customerMapper.customerToCustomerDTO(customerRepository.findById(l).get());
+    }
+
+    @Override
+    public CustomerDTO saveCustomerByDTO(long l, CustomerDTO customerDTO) {
+        Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
+        customer.setId(l);
+        CustomerDTO customerDTO1 = customerMapper.customerToCustomerDTO(customerRepository.save(customer));
+        customerDTO1.setCustomerUrl(CustomerController.BASE_URL + "/" + customer.getId());
+        return customerDTO1;
+    }
+
     private String getCustomerUrl(String name) {
         return CustomerController.BASE_URL + "/" + name;
     }
