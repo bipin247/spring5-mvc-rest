@@ -30,7 +30,7 @@ public class SwaggerConfig { //} extends WebMvcConfigurationSupport {
     private ApiInfo metaData(){
 
         Contact contact = new Contact("Bipin Patek", "https://springframework.guru/about/",
-                "bipin147@mail.com@");
+                "bipin147@mail.com");
 
         return new ApiInfo(
                 "Spring Framework Guru",

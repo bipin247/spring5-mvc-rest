@@ -59,6 +59,7 @@ public class CustomerControllerTest {
         when(customerService.getAllCustomer()).thenReturn(customers);
         //then
         mockMvc.perform(get("/api/v1/customers/")
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.customers", hasSize(3)));
@@ -74,6 +75,7 @@ public class CustomerControllerTest {
         //then
         //note the BIPIN in url
         mockMvc.perform(get("/api/v1/customers/Bipin")
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo("Bipin")));
@@ -95,7 +97,8 @@ public class CustomerControllerTest {
 
         //when/then
         mockMvc.perform(post("/api/v1/customers/")
-                    .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
                     .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.firstName", equalTo("Fred")))
@@ -118,6 +121,7 @@ public class CustomerControllerTest {
 
         //when/then
         mockMvc.perform(put("/api/v1/customers/Fred")
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(customer)))
                 .andExpect(status().isOk())
@@ -141,6 +145,7 @@ public class CustomerControllerTest {
         when(customerService.patchCustomer(anyString(), any(CustomerDTO.class))).thenReturn(returnDTO);
 
         mockMvc.perform(patch("/api/v1/customers/Fred")
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(customer)))
                 .andExpect(status().isOk())
