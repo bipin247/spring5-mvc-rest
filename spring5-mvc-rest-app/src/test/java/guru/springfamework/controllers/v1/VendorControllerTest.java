@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Arrays;
 
@@ -67,7 +68,7 @@ public class VendorControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", equalTo(vendorDTO_1.getName())));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name", equalTo(vendorDTO_1.getName())));
     }
 
     @Test
@@ -80,7 +81,7 @@ public class VendorControllerTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(asJsonString(vendorDTO_1)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name", equalTo(vendorDTO_1.getName())));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name", equalTo(vendorDTO_1.getName())));
     }
 
     @Test

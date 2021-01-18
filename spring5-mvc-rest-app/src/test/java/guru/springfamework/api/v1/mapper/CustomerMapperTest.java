@@ -3,7 +3,6 @@ package guru.springfamework.api.v1.mapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.domain.Customer;
 import org.junit.Test;
-import org.springframework.web.bind.annotation.InitBinder;
 
 import static org.junit.Assert.assertEquals;
 

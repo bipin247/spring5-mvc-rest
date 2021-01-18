@@ -2,9 +2,6 @@ package guru.springfamework.services;
 
 import guru.springfamework.api.v1.model.VendorDTO;
 import guru.springfamework.api.v1.model.VendorListDTO;
-import guru.springfamework.domain.Vendor;
-
-import java.util.List;
 
 public interface VendorService {
     VendorListDTO getAllVendor();

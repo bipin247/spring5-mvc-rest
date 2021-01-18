@@ -9,8 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Api(tags={"This is my Vendor Controller"})
 @RestController
 @RequestMapping(VendorController.BASE_URL)
