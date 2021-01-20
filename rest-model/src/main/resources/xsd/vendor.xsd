@@ -1,6 +1,6 @@
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:element name="VendorListDTO" type="VendorListDTO"/>
-    <xs:complexType name="Vendor">
+    <xs:complexType name="VendorDTO">
         <xs:sequence>
             <xs:element type="xs:string" name="name" minOccurs="0"/>
             <xs:element type="xs:string" name="vendorUrl" minOccurs="0"/>
@@ -8,7 +8,7 @@
     </xs:complexType>
     <xs:complexType name="VendorListDTO">
         <xs:sequence>
-            <xs:element type="Vendor" name="vendors"  maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element type="VendorDTO" name="vendors"  maxOccurs="unbounded" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

@@ -3,17 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>guru.springfamework</groupId>
-	<artifactId>spring5-mvc-rest</artifactId>
+	<groupId>guru.springframework</groupId>
+	<artifactId>spring5-mvc-rest-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-    <modules>
-        <module>spring5-mvc-rest-app</module>
-		<module>rest-model</module>
-	</modules>
-    <packaging>pom</packaging>
-
-	<name>spring5-mvc-rest</name>
 	<description>Demo project for Spring Boot</description>
+
+    <packaging>pom</packaging>
+	<name>spring5-mvc-rest-parent</name>
+
+	<modules>
+		<module>rest-model</module>
+		<module>spring5-mvc-rest-app</module>
+	</modules>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
